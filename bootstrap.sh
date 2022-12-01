@@ -43,7 +43,7 @@ EOM
 NEV_VERSION="${NEV_VERSION:-}"
 if [ -z "${NEV_VERSION}" ]
 then
-  echo -n "Version: [2.2.0] "
+  echo -n "NEV Version: [2.2.0] "
   read NEV_VERSION
 fi
 if [ -z "${NEV_VERSION}" ]
@@ -64,7 +64,11 @@ NUXEO_TOKEN=`uuidgen`
 echo -n "OAUTH2 secret: [${NUXEO_TOKEN}] "
 read NUXEO_TOKEN
 
+echo ""
+echo "Ok, getting things ready..."
+
 # Login to private repo
+echo ""
 echo "Logging in to ${DOCKER_PRIVATE}:"
 docker login ${DOCKER_PRIVATE}
 EXEC=$?
@@ -92,12 +96,12 @@ cd ${PROJECT_DIR}
 
 # Pull images
 echo "Please wait, getting things ready..."
-docker compose --log-level ERROR pull
+docker compose pull
 echo ""
 
 # Finish up...
 echo "Don't forget to update your Nuxeo Server configuration:"
-echo "* Install `nuxeo-arender` plugin (check https://doc.nuxeo.com/nxdoc/nuxeo-enhanced-viewer-release-notes/ for correct version)"
+echo "* Install 'nuxeo-arender' plugin (check https://doc.nuxeo.com/nxdoc/nuxeo-enhanced-viewer-release-notes/ for correct version)"
 echo "* Update Nuxeo conf file(s):"
 echo "arender.server.previewer.host=<previewer_url>"
 echo "nuxeo.arender.oauth2.client.create=true"
