@@ -21,7 +21,15 @@ This will provide you with a folder that contains:
 
 * `docker-compose.yml`
 * `.env`
-* Helpful tooling for managing the stack
+* Helpful tooling for managing the stack:
+  * See `aliases.sh`, you can do things like:
+    * `nev up`
+    * `nev down`
+    * `nev start`
+    * `nev stop`
+    * `nevlogs`
+    * `nev SERVICE=ui new` to recreate the `ui` container
+    * etc.
 
 # Support
 
