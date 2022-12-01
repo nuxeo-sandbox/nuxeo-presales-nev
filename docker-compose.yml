@@ -2,18 +2,18 @@ version: "3.7"
 
 services:
   ui:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-ui:${VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-ui:${NEV_VERSION}
     mem_limit: 2g # Copied from Genus example, not sure it's needed
     container_name: ui
     environment:
       - "ARENDERSRV_ARENDER_SERVER_RENDITION_HOSTS=http://dsb-service:8761/"
-      - "ARENDERSRV_NUXEO_SERVER_URL=http://localhost:8080"
-      - "ARENDERSRV_NUXEO_SERVER_ARENDER_SECRET=OAUTH2_SECRET" # must match nuxeo.conf
+      - "ARENDERSRV_NUXEO_SERVER_URL=${NUXEO_URL}"
+      - "ARENDERSRV_NUXEO_SERVER_ARENDER_SECRET=${NUXEO_TOKEN}" # must match nuxeo.conf
     ports:
-      - 8081:8080
+      - 8080:8080
 
   service-broker:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-service-broker:${VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-service-broker:${NEV_VERSION}
     container_name: dsb-service
     environment:
       - "DSB_KUBEPROVIDER_KUBE.HOSTS_DCV-SERVICE=19999"
@@ -25,7 +25,7 @@ services:
       - arender-tmp:/arender/tmp
 
   document-renderer:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-renderer:${VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-renderer:${NEV_VERSION}
     container_name: drn-service
     environment:
       - "DRN_EUREKA_INSTANCE_METADATA.MAP_HOST.NAME=drn-service"
@@ -37,7 +37,7 @@ services:
       - arender-tmp:/arender/tmp
 
   document-text-handler:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-text-handler:${VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-text-handler:${NEV_VERSION}
     container_name: dth-service
     environment:
       - "DTH_EUREKA_INSTANCE_METADATA.MAP_HOST.NAME=dth-service"
@@ -49,7 +49,7 @@ services:
       - arender-tmp:/arender/tmp
 
   document-converter:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-converter:${VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-converter:${NEV_VERSION}
     container_name: dcv-service
     environment:
       - "DCV_EUREKA_INSTANCE_METADATA.MAP_HOST.NAME=dcv-service"

@@ -1,0 +1,10 @@
+You have now configured your Nuxeo Enhanced Viewer Compose setup.  Please check
+the above output to make sure everything went ok.
+
+To start your stack, navigate to your project directory and run:
+  docker-compose up -d
+
+(but it is HIGHLY recommended to install the aliases! aliases.sh provides
+shortcuts to common functions to build, start, and stop the stack configuration.
+
+NEV will launch on port 8080.
