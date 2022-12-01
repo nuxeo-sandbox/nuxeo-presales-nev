@@ -5,4 +5,5 @@ alias nevcreate='bash -c "$(curl -fsSL https://raw.github.com/nuxeo-sandbox/nuxe
 
 # QOL aliases to make managing the stack easier
 alias nev='make -e'
+alias nevui='stack SERVICE=ui'
 alias nevlogs='nev logs'
