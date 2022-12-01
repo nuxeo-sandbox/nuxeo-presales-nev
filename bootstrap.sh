@@ -104,7 +104,7 @@ cd ${PROJECT_DIR}
 
 # Pull images
 echo "Pulling Docker images..."
-docker compose pull
+docker-compose pull
 echo ""
 
 # Finish up...
