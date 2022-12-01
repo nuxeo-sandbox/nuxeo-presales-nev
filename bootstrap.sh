@@ -60,9 +60,17 @@ do
 done
 
 # Set Token
-NUXEO_TOKEN=`uuidgen`
-echo -n "OAUTH2 secret: [${NUXEO_TOKEN}] "
-read NUXEO_TOKEN
+DEFAULT_TOKEN=`uuidgen`
+NUXEO_TOKEN="${NUXEO_TOKEN:-}"
+if [ -z "${NUXEO_TOKEN}" ]
+then
+  echo -n "OAUTH2 secret: [${DEFAULT_TOKEN}] "
+  read NUXEO_TOKEN
+fi
+if [ -z "${NUXEO_TOKEN}" ]
+then
+  NUXEO_TOKEN=${DEFAULT_TOKEN}
+fi
 
 echo ""
 echo "Ok, getting things ready..."
@@ -95,14 +103,17 @@ EOF
 cd ${PROJECT_DIR}
 
 # Pull images
-echo "Please wait, getting things ready..."
+echo "Pulling Docker images..."
 docker compose pull
 echo ""
 
 # Finish up...
-echo "Don't forget to update your Nuxeo Server configuration:"
+echo "=========================================================================="
+echo "DONE! Don't forget to update your Nuxeo Server configuration:"
+echo ""
 echo "* Install 'nuxeo-arender' plugin (check https://doc.nuxeo.com/nxdoc/nuxeo-enhanced-viewer-release-notes/ for correct version)"
 echo "* Update Nuxeo conf file(s):"
+echo ""
 echo "arender.server.previewer.host=<previewer_url>"
 echo "nuxeo.arender.oauth2.client.create=true"
 echo "nuxeo.arender.oauth2.client.id=arender"
@@ -112,5 +123,6 @@ echo "nuxeo.arender.oauth2.client.redirectURI=/login/oauth2/code/nuxeo"
 # Display startup instructions
 if [ -e notes.txt ]
 then
+  echo ""
   cat notes.txt
 fi
