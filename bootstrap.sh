@@ -61,15 +61,15 @@ done
 
 # Set Token
 DEFAULT_TOKEN=`uuidgen`
-NUXEO_TOKEN="${NUXEO_TOKEN:-}"
-if [ -z "${NUXEO_TOKEN}" ]
+NUXEO_SECRET="${NUXEO_SECRET:-}"
+if [ -z "${NUXEO_SECRET}" ]
 then
   echo -n "OAUTH2 secret: [${DEFAULT_TOKEN}] "
-  read NUXEO_TOKEN
+  read NUXEO_SECRET
 fi
-if [ -z "${NUXEO_TOKEN}" ]
+if [ -z "${NUXEO_SECRET}" ]
 then
-  NUXEO_TOKEN=${DEFAULT_TOKEN}
+  NUXEO_SECRET=${DEFAULT_TOKEN}
 fi
 
 echo ""
@@ -96,7 +96,7 @@ echo ""
 cat << EOF > ${PROJECT_DIR}/.env
 NEV_VERSION=${NEV_VERSION}
 NUXEO_URL=${NUXEO_URL}
-NUXEO_TOKEN=${NUXEO_TOKEN}
+NUXEO_SECRET=${NUXEO_SECRET}
 EOF
 
 # Run everything in PROJECT_DIR dir
@@ -117,7 +117,7 @@ echo ""
 echo "arender.server.previewer.host=<previewer_url>"
 echo "nuxeo.arender.oauth2.client.create=true"
 echo "nuxeo.arender.oauth2.client.id=arender"
-echo "nuxeo.arender.oauth2.client.secret=${NUXEO_TOKEN}"
+echo "nuxeo.arender.oauth2.client.secret=${NUXEO_SECRET}"
 echo "nuxeo.arender.oauth2.client.redirectURI=/login/oauth2/code/nuxeo"
 
 # Display startup instructions

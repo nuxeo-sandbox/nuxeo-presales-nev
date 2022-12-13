@@ -8,7 +8,7 @@ services:
     environment:
       - "ARENDERSRV_ARENDER_SERVER_RENDITION_HOSTS=http://dsb-service:8761/"
       - "ARENDERSRV_NUXEO_SERVER_URL=${NUXEO_URL}"
-      - "ARENDERSRV_NUXEO_SERVER_ARENDER_SECRET=${NUXEO_TOKEN}" # must match nuxeo.conf
+      - "ARENDERSRV_NUXEO_SERVER_ARENDER_SECRET=${NUXEO_SECRET}" # must match nuxeo.conf
     ports:
       - 8080:8080
 
