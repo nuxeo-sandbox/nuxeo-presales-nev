@@ -14,7 +14,7 @@ running Nuxeo Enhanced Viewer.
 To create a brand new project, run the bootstrap script:
 
 ```
-bash -c "$(curl -fsSL https://raw.github.com/nuxeo-sandbox/nuxeo-presales-nev/master/bootstrap.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/nuxeo-sandbox/nuxeo-presales-nev/master/bootstrap.sh)"
 ```
 
 This will provide you with a folder that contains:
