@@ -5,6 +5,7 @@ services:
     image: docker-arender.packages.nuxeo.com/nuxeo/arender-ui:${NEV_VERSION}
     mem_limit: 2g # Copied from Genus example, not sure it's needed
     container_name: ui
+    restart: unless-stopped
     environment:
       - "ARENDERSRV_ARENDER_SERVER_RENDITION_HOSTS=http://dsb-service:8761/"
       - "ARENDERSRV_NUXEO_SERVER_URL=${NUXEO_URL}"
@@ -15,6 +16,7 @@ services:
   service-broker:
     image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-service-broker:${NEV_VERSION}
     container_name: dsb-service
+    restart: unless-stopped
     environment:
       - "DSB_KUBEPROVIDER_KUBE.HOSTS_DCV-SERVICE=19999"
       - "DSB_KUBEPROVIDER_KUBE.HOSTS_DRN-SERVICE=9091"
@@ -27,6 +29,7 @@ services:
   document-renderer:
     image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-renderer:${NEV_VERSION}
     container_name: drn-service
+    restart: unless-stopped
     environment:
       - "DRN_EUREKA_INSTANCE_METADATA.MAP_HOST.NAME=drn-service"
       - "DRN_EUREKA_INSTANCE_HOSTNAME=dsb-service"
@@ -39,6 +42,7 @@ services:
   document-text-handler:
     image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-text-handler:${NEV_VERSION}
     container_name: dth-service
+    restart: unless-stopped
     environment:
       - "DTH_EUREKA_INSTANCE_METADATA.MAP_HOST.NAME=dth-service"
       - "DTH_EUREKA_INSTANCE_HOSTNAME=dsb-service"
@@ -51,6 +55,7 @@ services:
   document-converter:
     image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-converter:${NEV_VERSION}
     container_name: dcv-service
+    restart: unless-stopped
     environment:
       - "DCV_EUREKA_INSTANCE_METADATA.MAP_HOST.NAME=dcv-service"
       - "DCV_APP_EUREKA_HOSTNAME=dsb-service"
