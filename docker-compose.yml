@@ -3,7 +3,6 @@ version: "3.7"
 services:
   ui:
     image: docker-arender.packages.nuxeo.com/nuxeo/arender-ui:${NEV_VERSION}
-    mem_limit: 2g # Copied from Genus example, not sure it's needed
     container_name: ui
     restart: unless-stopped
     environment:
