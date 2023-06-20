@@ -2,18 +2,18 @@ version: "3.7"
 
 services:
   ui:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-ui:${NEV_VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-ui:${ENV_NEV_VERSION}
     container_name: ui
     restart: unless-stopped
     environment:
       - "ARENDERSRV_ARENDER_SERVER_RENDITION_HOSTS=http://dsb-service:8761/"
-      - "ARENDERSRV_NUXEO_SERVER_URL=${NUXEO_URL}"
-      - "ARENDERSRV_NUXEO_SERVER_ARENDER_SECRET=${NUXEO_SECRET}" # must match nuxeo.conf
+      - "ARENDERSRV_NUXEO_SERVER_URL=${ENV_NUXEO_URL}"
+      - "ARENDERSRV_NUXEO_SERVER_ARENDER_SECRET=${ENV_NUXEO_SECRET}" # must match nuxeo.conf
     ports:
       - 8080:8080
 
   service-broker:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-service-broker:${NEV_VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-service-broker:${ENV_NEV_VERSION}
     container_name: dsb-service
     restart: unless-stopped
     environment:
@@ -26,7 +26,7 @@ services:
       - arender-tmp:/arender/tmp
 
   document-renderer:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-renderer:${NEV_VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-renderer:${ENV_NEV_VERSION}
     container_name: drn-service
     restart: unless-stopped
     environment:
@@ -39,7 +39,7 @@ services:
       - arender-tmp:/arender/tmp
 
   document-text-handler:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-text-handler:${NEV_VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-text-handler:${ENV_NEV_VERSION}
     container_name: dth-service
     restart: unless-stopped
     environment:
@@ -52,7 +52,7 @@ services:
       - arender-tmp:/arender/tmp
 
   document-converter:
-    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-converter:${NEV_VERSION}
+    image: docker-arender.packages.nuxeo.com/nuxeo/arender-document-converter:${ENV_NEV_VERSION}
     container_name: dcv-service
     restart: unless-stopped
     environment:
