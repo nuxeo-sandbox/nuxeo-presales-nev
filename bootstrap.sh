@@ -43,12 +43,12 @@ EOM
 NEV_VERSION="${NEV_VERSION:-}"
 if [ -z "${NEV_VERSION}" ]
 then
-  echo -n "NEV Version: [2.2.0] "
+  echo -n "NEV Version: [2.3.0] "
   read NEV_VERSION
 fi
 if [ -z "${NEV_VERSION}" ]
 then
-  NEV_VERSION="2.2.0"
+  NEV_VERSION="2.3.0"
 fi
 
 # Set Nuxeo URL
