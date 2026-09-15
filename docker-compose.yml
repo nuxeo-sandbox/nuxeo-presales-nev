@@ -9,6 +9,8 @@ services:
       - "ARENDERSRV_ARENDER_SERVER_RENDITION_HOSTS=http://dsb-service:8761/"
       - "ARENDERSRV_NUXEO_SERVER_URL=${ENV_NUXEO_URL}"
       - "ARENDERSRV_NUXEO_SERVER_ARENDER_SECRET=${ENV_NUXEO_SECRET}" # must match nuxeo.conf
+      # ARender 2026.0.0+ (NEV-754) dropped the built-in fallback that derived this from the server URL; set it explicitly. See NEV-767.
+      - "ARENDERSRV_NUXEO_OAUTH2_CLIENT_AUTHORIZATION_URI=${ENV_NUXEO_URL}/oauth2/authorize"
     ports:
       - 8080:8080
 
