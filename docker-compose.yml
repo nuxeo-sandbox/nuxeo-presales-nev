@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   ui:
     image: docker-arender.packages.nuxeo.com/nuxeo/arender-ui:${ENV_NEV_VERSION}
