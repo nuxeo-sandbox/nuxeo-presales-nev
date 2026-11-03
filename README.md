@@ -1,10 +1,11 @@
 # About
 
-Command line tooling for creating and managing a Docker Compose stack for
-running Nuxeo Enhanced Viewer.
+Command line tooling for creating and managing a Docker Compose-based stack for
+[Nuxeo Enhanced Viewer](https://doc.nuxeo.com/n/QyI).
 
 # Requirements
 
+* [Access to ARender Docker images](https://doc.nuxeo.com/nxdoc/nuxeo-enhanced-viewer-installation/#presentation)
 * Docker Engine
 * Docker Compose
 * Git Command Line
@@ -14,23 +15,36 @@ running Nuxeo Enhanced Viewer.
 To create a brand new project, run the bootstrap script:
 
 ```
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/nuxeo-sandbox/nuxeo-presales-nev/master/bootstrap.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/nuxeo-sandbox/nuxeo-presales-nev/main/bootstrap.sh)"
 ```
 
-This will provide you with a folder that contains:
+This will provide you with a folder that contains (among other things):
 
 * `docker-compose.yml`
 * `.env`
 * Helpful tooling for managing the stack:
-  * See `aliases.sh`, you can do things like:
-    * `nev up`
-    * `nev down`
-    * `nev start`
-    * `nev stop`
-    * `nev pull`
-    * `nev new`
-    * `nevui new` to recreate the `ui` container
-    * etc.
+
+After installation is complete, launch the stack with:
+
+```
+cd nuxeo-presales-nev && docker compose up -d
+```
+
+Follow the logs with:
+
+```
+docker compose logs -f
+```
+
+* If you install [aliases.sh](aliases.sh) you can do things like:
+  * `nev up`
+  * `nev down`
+  * `nev start`
+  * `nev stop`
+  * `nev pull`
+  * `nev new`
+  * `nevui new` to recreate the `ui` container
+  * etc.
 
 # Support
 
