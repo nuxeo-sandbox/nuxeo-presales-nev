@@ -27,8 +27,9 @@ This will provide you with a folder that contains:
     * `nev down`
     * `nev start`
     * `nev stop`
-    * `nevlogs`
-    * `nev SERVICE=ui new` to recreate the `ui` container
+    * `nev pull`
+    * `nev new`
+    * `nevui new` to recreate the `ui` container
     * etc.
 
 # Support
