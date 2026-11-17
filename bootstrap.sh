@@ -7,7 +7,7 @@
 NPNEV_REPO="https://github.com/nuxeo-sandbox/nuxeo-presales-nev"
 DOCKER_PRIVATE="docker-arender.packages.nuxeo.com"
 PROJECT_DIR="nuxeo-presales-nev"
-NEV_VERSION_DEFAULT="2026.2.0"
+NEV_VERSION_DEFAULT="2026.4.0"
 
 # Check for commands used in this script
 CHECKS=()
