@@ -57,25 +57,6 @@ then
   NEV_VERSION=${NEV_VERSION:-${NEV_VERSION_DEFAULT}}
 fi
 
-# Nuxeo URL
-# =========
-# Required, loop until we get a value.
-NUXEO_URL="${NUXEO_URL:-}"
-while [ -z "${NUXEO_URL}" ]
-do
-  read -p "Nuxeo Application URL (e.g. https://my-demo.cloud.nuxeo.com/nuxeo): " NUXEO_URL
-done
-
-# OAUTH2 secret
-# =============
-DEFAULT_TOKEN=$(uuidgen)
-NUXEO_SECRET="${NUXEO_SECRET:-}"
-if [ -z "${NUXEO_SECRET}" ]
-then
-  read -p "OAUTH2 secret [${DEFAULT_TOKEN}]: " NUXEO_SECRET
-  NUXEO_SECRET=${NUXEO_SECRET:-${DEFAULT_TOKEN}}
-fi
-
 # We don't want to run this script on existing folders...
 if [ -e ${PROJECT_DIR} ]
 then
@@ -106,12 +87,38 @@ then
 fi
 
 # ==============================================================================
+# Other params
+# ==============================================================================
+
+# Preface: use sane defaults for Nuxeo Presales users, who are using
+# nuxeo-presales-docker (NPD) to run Nuxeo. All of these can be overridden by
+# environment variables.
+
+# NPD and NPN use separate Docker Compose networks. With Docker Desktop, ARender
+# reaches Nuxeo via host.docker.internal.
+NUXEO_URL="${NUXEO_URL:-http://host.docker.internal:8080/nuxeo}"
+
+# Nuxeo runs on 8080 by default, so it's occupied. Arender wants 8080 as well
+# and in fact doesn't work if you try to modify the internal port. So we only
+# change the host mapping so that the browser can reach Arender.
+ENV_NEV_PORT="${ENV_NEV_PORT:-8081}"
+
+# Arender sends this URL to the browser for OAuth2 authorization, so it needs to
+# be accessible by the browser (i.e. not via host.docker.internal).
+ENV_NUXEO_AUTHORIZATION_URL="${ENV_NUXEO_AUTHORIZATION_URL:-http://localhost:8080/nuxeo/oauth2/authorize}"
+
+# Nothing special here just making it easier for the user.
+NUXEO_SECRET="${NUXEO_SECRET:-$(uuidgen)}"
+
+# ==============================================================================
 # Summarize
 # ==============================================================================
 
 echo
 echo "NEV version:            ${NEV_VERSION}"
+echo "NEV host port:          ${ENV_NEV_PORT}"
 echo "Nuxeo Application URL:  ${NUXEO_URL}"
+echo "Nuxeo OAuth URL:        ${ENV_NUXEO_AUTHORIZATION_URL}"
 echo "OAUTH2 secret:          ${NUXEO_SECRET}"
 echo "NPNEV Branch:           ${NPNEV_BRANCH}"
 
@@ -147,7 +154,9 @@ git clone -b ${NPNEV_BRANCH} ${NPNEV_REPO} ${PROJECT_DIR}
 # Generate .env file
 cat << EOF > ${PROJECT_DIR}/.env
 ENV_NEV_VERSION=${NEV_VERSION}
+ENV_NEV_PORT=${ENV_NEV_PORT}
 ENV_NUXEO_URL=${NUXEO_URL}
+ENV_NUXEO_AUTHORIZATION_URL=${ENV_NUXEO_AUTHORIZATION_URL}
 ENV_NUXEO_SECRET=${NUXEO_SECRET}
 EOF
 
