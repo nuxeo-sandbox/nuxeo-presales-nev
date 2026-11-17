@@ -46,6 +46,8 @@ docker compose logs -f
   * `nevui new` to recreate the `ui` container
   * etc.
 
+For advanced usage, see [USAGE.md](USAGE.md).
+
 # Support
 
 **These features are not part of the Nuxeo Production platform.**
